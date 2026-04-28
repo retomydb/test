@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Services — PetPal AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <meta property="og:title" content="PetPal AI Services">
+    <meta property="og:description" content="Behavior analysis, health tracking, training and 24/7 vet chat.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1552053831-71594a27632d?w=1200">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'DM Serif Display', serif;
+        }
+        
+        .tab-active {
+            border-bottom: 3px solid #ffb800;
+            color: #0a2540;
+            font-weight: 600;
+        }
+        
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .sticky-bar {
+            position: sticky;
+            bottom: 0;
+            z-index: 30;
+        }
+    </style>
+</head>
+<body class="tail-container bg-[#fdfbf7] text-[#0a2540]">
+    <!-- NAVBAR -->
+    <nav class="bg-[#fdfbf7] border-b border-[#0a2540]/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#ffb800] text-[#0a2540] flex items-center justify-center rounded-2xl text-3xl logo-paw">🐾</div>
+                    <div>
+                        <span class="heading-font text-3xl tracking-tighter font-medium">PetPal</span>
+                    </div>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="how-it-works.html" class="nav-link">How it Works</a>
+                    <a href="services.html" class="nav-link text-[#ffb800] font-semibold">Services</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-4">
+                    <a href="pricing.html" 
+                       class="pill-button px-6 py-3.5 bg-[#ffb800] text-[#0a2540] font-semibold text-sm rounded-3xl">Get the app</a>
+                </div>
+                
+                <button onclick="toggleMobileMenu()" 
+                        class="md:hidden w-11 h-11 flex items-center justify-center text-3xl">☰</button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden fixed inset-0 bg-[#0a2540] z-[999] flex flex-col pt-6">
+            <div class="px-5 flex justify-between">
+                <a href="index.html" class="flex items-center gap-x-3 text-white">
+                    <span class="text-4xl">🐾</span>
+                    <span class="heading-font text-4xl">PetPal</span>
+                </a>
+                <button onclick="toggleMobileMenu()" class="text-white text-5xl">✕</button>
+            </div>
+            <div class="mt-16 px-8 flex flex-col gap-y-7 text-3xl text-white">
+                <a href="how-it-works.html" onclick="toggleMobileMenu()">How it Works</a>
+                <a href="services.html" onclick="toggleMobileMenu()" class="text-[#ffb800]">Services</a>
+                <a href="pricing.html" onclick="toggleMobileMenu()">Pricing</a>
+            </div>
+            <div class="mt-auto p-8">
+                <a href="pricing.html" onclick="toggleMobileMenu()" 
+                   class="block w-full h-16 bg-[#ffb800] text-[#0a2540] rounded-3xl text-2xl font-medium text-center flex items-center justify-center">Get the app</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- TABBED HERO -->
+        <div class="bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex border-b overflow-x-auto hide-scrollbar">
+                    <button onclick="switchTab(0)" id="tab-0"
+                            class="tab-active px-8 py-7 text-base whitespace-nowrap">Behavior</button>
+                    <button onclick="switchTab(1)" id="tab-1"
+                            class="px-8 py-7 text-base whitespace-nowrap">Health</button>
+                    <button onclick="switchTab(2)" id="tab-2"
+                            class="px-8 py-7 text-base whitespace-nowrap">Training</button>
+                    <button onclick="switchTab(3)" id="tab-3"
+                            class="px-8 py-7 text-base whitespace-nowrap">Vet Chat</button>
+                </div>
+                
+                <div id="tab-content" class="min-h-[620px]">
+                </div>
+            </div>
+        </div>
+        
+        <div class="sticky-bar bg-white border-t shadow-2xl py-4 px-4">
+            <div class="max-w-7xl mx-auto flex items-center justify-between bg-[#ff6b6b]/10 text-[#ff6b6b] rounded-3xl px-5 py-3 text-sm">
+                <div class="flex items-center gap-x-3">
+                    <span class="font-semibold">Unlimited access from $19/mo • Secured by Stripe</span>
+                </div>
+                <a href="pricing.html" 
+                   class="bg-[#ffb800] text-[#0a2540] px-7 h-9 rounded-3xl text-sm font-medium flex items-center">Compare all plans →</a>
+            </div>
+        </div>
+        
+        <div class="py-24 bg-[#0a2540]">
+            <div class="max-w-xl mx-auto text-center px-5 text-white">
+                <span class="text-[#ffb800] text-sm">EVERYTHING INCLUDED</span>
+                <h2 class="heading-font text-5xl mt-3">Pick the plan that’s right for you and your pets.</h2>
+                <div class="flex justify-center gap-x-6 mt-12">
+                    <a href="pricing.html" 
+                       class="bg-[#ffb800] text-[#0a2540] px-10 py-6 rounded-3xl font-semibold">View pricing</a>
+                    <a href="pricing.html" 
+                       class="border border-white/60 text-white px-10 py-6 rounded-3xl">Start free trial</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-[#0a2540] text-white pt-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="bg-[#fdfbf7] text-[#0a2540] rounded-3xl p-8 md:p-12 grid md:grid-cols-12 gap-8">
+                <div class="md:col-span-7">
+                    <div class="uppercase text-xs tracking-[1px]">Weekly tips for happier pets</div>
+                    <div class="heading-font text-4xl mt-2">Stay in the know</div>
+                </div>
+                <div class="md:col-span-5">
+                    <div class="flex">
+                        <input id="email-input-footer" type="email" placeholder="your@email.com" 
+                               class="flex-1 bg-white border-0 focus:ring-0 rounded-l-3xl px-7 text-sm h-14 outline-none">
+                        <button onclick="subscribeFooter()" 
+                                class="bg-[#ffb800] text-[#0a2540] font-semibold px-10 rounded-r-3xl">Join</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pt-16 grid grid-cols-2 sm:grid-cols-4 gap-y-10 text-sm">
+                <div>
+                    <div class="font-semibold text-white/60 text-xs mb-5">PRODUCT</div>
+                    <a href="how-it-works.html" class="block py-1 text-white/80 hover:text-white">How it Works</a>
+                    <a href="services.html" class="block py-1 text-white/80 hover:text-white">Services</a>
+                    <a href="pricing.html" class="block py-1 text-white/80 hover:text-white">Pricing</a>
+                </div>
+                <div>
+                    <div class="font-semibold text-white/60 text-xs mb-5">COMPANY</div>
+                    <a href="#" onclick="event.preventDefault();alert('Our story would be here')" class="block py-1 text-white/80 hover:text-white">Our Story</a>
+                    <a href="#" class="block py-1 text-white/80 hover:text-white">Team</a>
+                </div>
+                <div>
+                    <div class="font-semibold text-white/60 text-xs mb-5">RESOURCES</div>
+                    <a href="#" class="block py-1 text-white/80 hover:text-white">Help Center</a>
+                    <a href="#" class="block py-1 text-white/80 hover:text-white">Blog</a>
+                </div>
+                <div>
+                    <div class="font-semibold text-white/60 text-xs mb-5">LEGAL</div>
+                    <a href="#" class="block py-1 text-white/80 hover:text-white">Privacy Policy</a>
+                    <a href="#" class="block py-1 text-white/80 hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-y-6 pt-20 pb-6 text-xs">
+                <div class="flex items-center gap-x-6">
+                    <div>🐦</div>
+                    <div>📷</div>
+                    <div>🎵</div>
+                    <div>📺</div>
+                </div>
+                <div class="text-white/30">© PetPal AI 2024 • Austin, TX • Secured by Stripe</div>
+                <div class="text-[#0f766e] text-[22px]">🐾</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function initializeTailwind() {
+            tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {
+                        colors: {
+                            navy: '#0a2540',
+                            accent: '#ffb800',
+                            coral: '#ff6b6b',
+                            forest: '#0f766e'
+                        }
+                    }
+                }
+            }
+        }
+        
+        const tabData = [
+            {
+                title: "Behavior",
+                photo: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=1400",
+                tagline: "Unlock the meaning behind every bark, tail wag, and ear twitch.",
+                features: [
+                    "142-behavior translator",
+                    "Real-time mood detection",
+                    "Anxiety & stress alerts",
+                    "Bark & meow interpretation",
+                    "Socialization score",
+                    "Pattern recognition over time",
+                    "Video behavior library",
+                    "Exportable vet reports"
+                ],
+                testimonial: "“I finally understand why my rescue dog hides when the doorbell rings. The training tips have been life-changing.”",
+                testimonialAuthor: "— Rachel T., Portland • Beagle mix",
+                badge: "Included in all plans"
+            },
+            {
+                title: "Health",
+                photo: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=1400",
+                tagline: "Catch problems before they become emergencies.",
+                features: [
+                    "Daily symptom logging",
+                    "AI early warning system",
+                    "Medication reminders",
+                    "Weight & nutrition tracker",
+                    "Allergy predictor",
+                    "Chronic condition monitor",
+                    "Vet visit prep checklist",
+                    "Integrated with 24/7 chat"
+                ],
+                testimonial: "“The app noticed a change in my cat’s gait and prompted me to get an X-ray. Turned out to be early arthritis. Thank you PetPal!”",
+                testimonialAuthor: "— David L., Chicago • Tabby cat",
+                badge: "Included in Pro and Family"
+            },
+            {
+                title: "Training",
+                photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400",
+                tagline: "Custom plans that actually work for your unique pet.",
+                features: [
+                    "Breed-specific programs",
+                    "Daily micro-lessons",
+                    "Progress tracking",
+                    "Positive reinforcement cues",
+                    "Leash reactivity training",
+                    "Recall mastery course",
+                    "Separation anxiety module",
+                    "Community training challenges"
+                ],
+                testimonial: "“My Frenchie learned to stop jumping on guests in just 11 days. The video feedback feature is brilliant.”",
+                testimonialAuthor: "— Priya M., Austin • French Bulldog",
+                badge: "Included in Pro and Family"
+            },
+            {
+                title: "Vet Chat",
+                photo: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1400",
+                tagline: "Talk to a real US-licensed veterinarian any time.",
+                features: [
+                    "Average response &lt; 90 seconds",
+                    "Photo & video upload",
+                    "Prescription routing",
+                    "Follow-up reminders",
+                    "Medical record upload",
+                    "Specialist referrals",
+                    "24/7 availability",
+                    "Unlimited in Family plan"
+                ],
+                testimonial: "“We had a late-night emergency with our senior dog. The vet walked us through exactly what to do. Saved us a $900 ER visit.”",
+                testimonialAuthor: "— James &amp; Sophie, Seattle • Husky",
+                badge: "10 chats/mo in Pro"
+            }
+        ]
+        
+        let currentTab = 0
+        
+        function renderTab(tabIndex) {
+            const data = tabData[tabIndex]
+            const container = document.getElementById('tab-content')
+            
+            let html = `
+            <div class="grid lg:grid-cols-12">
+                <div class="lg:col-span-7 relative">
+                    <img src="${data.photo}" class="w-full h-full object-cover min-h-[420px] lg:min-h-[620px]" alt="${data.title}">
+                    <div class="absolute top-8 left-8 bg-white text-[#0a2540] text-xs font-medium px-5 py-2.5 rounded-3xl shadow-inner">${data.badge}</div>
+                </div>
+                
+                <div class="lg:col-span-5 bg-white p-8 lg:p-12 flex flex-col">
+                    <div class="text-[#ffb800] text-xs tracking-widest font-medium">${data.title.toUpperCase()}</div>
+                    <h1 class="heading-font text-5xl leading-none mt-4">${data.tagline}</h1>
+                    
+                    <div class="mt-auto">
+                        <div class="text-xs uppercase font-semibold text-[#0a2540]/60 mt-12 mb-4">Included features</div>
+                        <div class="grid grid-cols-2 gap-y-5 text-sm">
+                            ${data.features.map(feature => `<div class="flex items-center gap-x-3"><span class="text-[#0f766e]">✓</span> ${feature}</div>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="mt-16 border-t pt-8">
+                        <div class="italic text-[#0a2540]/80 text-base">"${data.testimonial}"</div>
+                        <div class="mt-6 text-xs">${data.testimonialAuthor}</div>
+                    </div>
+                    
+                    <a href="pricing.html" class="mt-auto bg-[#ffb800] text-[#0a2540] h-14 w-full rounded-3xl font-semibold text-base mt-12 flex items-center justify-center">Get access to ${data.title}</a>
+                </div>
+            </div>`
+            
+            container.innerHTML = html
+        }
+        
+        function switchTab(tabIndex) {
+            currentTab = tabIndex
+            for (let i = 0; i < 4; i++) {
+                const tabEl = document.getElementById('tab-' + i)
+                if (tabEl) {
+                    if (i === tabIndex) tabEl.classList.add('tab-active')
+                    else tabEl.classList.remove('tab-active')
+                }
+            }
+            renderTab(tabIndex)
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById("mobile-menu")
+            menu.classList.toggle("hidden")
+        }
+        
+        function subscribeFooter() {
+            const input = document.getElementById("email-input-footer")
+            if (!input) return
+            input.value = "Thank you for subscribing 🐱"
+            setTimeout(() => input.value = '', 1700)
+        }
+        
+        function initScroll() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible')
+                })
+            })
+            document.querySelectorAll('.fade-in-section').forEach(section => observer.observe(section))
+        }
+        
+        window.onload = function() {
+            initializeTailwind()
+            renderTab(0)
+            initScroll()
+            console.log('%cServices page initialized • Stripe checkout available at /pricing', 'color:#0f766e;font-size:10px')
+        }
+    </script>
+</body>
+</html>
