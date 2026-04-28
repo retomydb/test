@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>PetPal AI — Finally Understand Your Pet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <meta property="og:title" content="PetPal AI — Finally Understand Your Pet">
+    <meta property="og:description" content="AI-powered behavior analysis, 24/7 vet chat, and personalized plans for your dog or cat.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1552053831-71594a27632d?w=1200">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        
+        :root {
+            --navy: #0a2540;
+        }
+        
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'DM Serif Display', serif;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(10, 37, 64, 0.35), rgba(10, 37, 64, 0.65)), url('https://images.unsplash.com/photo-1552053831-71594a27632d?w=2000');
+            background-size: cover;
+            background-position: center 30%;
+        }
+        
+        .nav-link {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover {
+            color: #ffb800;
+            transform: translateY(-1px);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(10 37 64 / 0.15);
+        }
+        
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .phone-mock {
+            border: 12px solid #0a2540;
+            border-radius: 48px;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            overflow: hidden;
+        }
+        
+        .pill-button {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .pill-button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgb(255 184 0 / 0.3);
+        }
+        
+        .logo-paw {
+            animation: wag 3s infinite alternate ease-in-out;
+        }
+        
+        @keyframes wag {
+            from { transform: rotate(-8deg); }
+            to { transform: rotate(8deg); }
+        }
+        
+        .testimonial-card {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+</head>
+<body class="tail-container bg-[#fdfbf7] text-[#0a2540] overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="bg-[#fdfbf7] border-b border-[#0a2540]/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+                <!-- LOGO -->
+                <a href="index.html" class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#ffb800] text-[#0a2540] flex items-center justify-center rounded-2xl text-3xl logo-paw">🐾</div>
+                    <div>
+                        <span class="heading-font text-3xl tracking-tighter font-medium">PetPal</span>
+                    </div>
+                </a>
+                
+                <!-- DESKTOP MENU -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="how-it-works.html" class="nav-link">How it Works</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-4">
+                    <a href="pricing.html" 
+                       class="pill-button px-6 py-3.5 bg-[#ffb800] hover:bg-[#ff9f00] text-[#0a2540] font-semibold text-sm rounded-3xl flex items-center gap-x-2 shadow-inner">
+                        <span>Get the app</span>
+                        <span class="text-xs bg-white/30 px-2.5 py-1 rounded-3xl">14 days free</span>
+                    </a>
+                </div>
+                
+                <!-- MOBILE HAMBURGER -->
+                <button id="mobile-menu-button"
+                        class="md:hidden w-11 h-11 flex items-center justify-center text-3xl"
+                        onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+            </div>
+        </div>
+        
+        <!-- MOBILE MENU OVERLAY -->
+        <div id="mobile-menu" class="hidden fixed inset-0 bg-[#0a2540] z-[999] flex flex-col">
+            <div class="px-6 pt-8 pb-6 flex justify-between items-center border-b border-white/10">
+                <a href="index.html" class="flex items-center gap-x-3 text-white">
+                    <div class="w-9 h-9 bg-[#ffb800] text-[#0a2540] flex items-center justify-center rounded-2xl text-3xl">🐾</div>
+                    <span class="heading-font text-3xl tracking-tighter font-medium">PetPal</span>
+                </a>
+                <button onclick="toggleMobileMenu()" class="text-4xl text-white">✕</button>
+            </div>
+            
+            <div class="flex-1 px-6 py-10 flex flex-col gap-y-8 text-2xl font-medium text-white">
+                <a href="how-it-works.html" onclick="toggleMobileMenu()" class="nav-link">How it Works</a>
+                <a href="services.html" onclick="toggleMobileMenu()" class="nav-link">Services</a>
+                <a href="pricing.html" onclick="toggleMobileMenu()" class="nav-link">Pricing</a>
+            </div>
+            
+            <div class="p-6 border-t border-white/10">
+                <a href="pricing.html" onclick="toggleMobileMenu()" 
+                   class="block w-full py-6 bg-[#ffb800] text-[#0a2540] rounded-3xl text-xl font-semibold flex items-center justify-center gap-x-3 text-center">
+                    Get the app — 14 days free
+                </a>
+            </div>
+            
+            <div class="text-center text-white/40 text-xs py-6">
+                Made with 🐾 in Austin, Texas
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO -->
+        <header class="hero-bg h-screen flex items-end relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 w-full">
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-x-2 bg-white/90 text-[#0a2540] text-sm font-medium px-5 h-8 rounded-3xl mb-6 shadow">
+                        <div class="w-2 h-2 bg-[#0f766e] rounded-full animate-pulse"></div>
+                        1.2 million pets registered
+                    </div>
+                    
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl leading-none font-medium text-white tracking-tighter">
+                        Finally understand<br>what your <span class="heading-font italic">dog</span> is<br>trying to tell you
+                    </h1>
+                    
+                    <p class="mt-6 text-xl text-white/90 max-w-md">
+                        AI-powered behavior insights, 24/7 vet chat, and a plan made for your pet — in one app.
+                    </p>
+                    
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                        <a href="pricing.html" 
+                           class="pill-button flex-1 sm:flex-none px-10 py-6 bg-[#ffb800] text-[#0a2540] rounded-3xl font-semibold text-lg shadow-xl shadow-[#ffb800]/40 inline-flex items-center justify-center">
+                            Try free for 14 days
+                        </a>
+                        
+                        <button onclick="watchDemo()" 
+                                class="pill-button flex-1 sm:flex-none px-8 py-6 border-2 border-white text-white rounded-3xl font-medium flex items-center justify-center gap-x-3 hover:bg-white/10">
+                            <span class="block w-3 h-3 bg-white rounded-full animate-ping"></span>
+                            Watch the demo
+                        </button>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center gap-x-8 text-sm text-white/80">
+                        <div class="flex items-center gap-x-5">
+                            <div class="flex -space-x-4">
+                                <div class="w-6 h-6 bg-white rounded-2xl border-2 border-[#0a2540] flex items-center justify-center text-[10px]">★</div>
+                            </div>
+                            <div>
+                                <span class="font-semibold">4.9★</span> on the App Store
+                            </div>
+                        </div>
+                        <div class="h-5 w-px bg-white/30"></div>
+                        <div class="text-xs leading-tight">
+                            NO CREDIT CARD<br>
+                            <span class="font-medium">CANCEL ANYTIME</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TRUST BAR -->
+            <div class="absolute bottom-8 left-1/2 hidden lg:flex -translate-x-1/2 bg-white/90 text-[#0a2540] text-xs tracking-[0.5px] font-medium px-8 h-9 items-center rounded-3xl shadow-inner gap-x-8">
+                <div class="flex items-center gap-x-8">
+                    <div class="grayscale">TECHCRUNCH</div>
+                    <div class="grayscale">WIRED</div>
+                    <div class="grayscale">FORBES</div>
+                    <div class="grayscale">THE VERGE</div>
+                    <div class="grayscale">FASTCO</div>
+                </div>
+            </div>
+            
+            <!-- FLOATING BADGE -->
+            <div class="absolute top-12 right-12 bg-white rounded-3xl shadow-2xl p-5 max-w-[180px] hidden xl:block">
+                <div class="flex gap-x-3 items-center">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=120" alt="Dog" 
+                         class="w-12 h-12 object-cover rounded-2xl">
+                    <div class="text-xs">
+                        <div class="font-medium text-[#0f766e]">Bark translated</div>
+                        <div class="text-[#0a2540]/70">"I'm excited to see you!"</div>
+                        <div class="text-[#ffb800] text-[10px] mt-3">— MAX THE GOLDEN</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- FEATURES -->
+        <section class="py-24 bg-white" id="features">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-center mb-6">
+                    <span onclick="document.getElementById('features').scrollIntoView({ behavior: 'smooth' })" 
+                          class="px-5 py-2 bg-[#0a2540]/5 text-[#0a2540] text-xs font-medium tracking-widest rounded-3xl cursor-pointer">EVERYTHING YOUR PET NEEDS, IN ONE APP</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Card 1 -->
+                    <a href="services.html" class="card-hover bg-[#fdfbf7] border border-[#0a2540]/5 rounded-3xl overflow-hidden cursor-pointer block">
+                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600" alt="Dog eyes" 
+                             class="w-full h-56 object-cover">
+                        <div class="p-7">
+                            <div class="flex items-center gap-x-2 text-[#0f766e]">
+                                <span class="text-xl">📡</span>
+                                <span class="uppercase text-xs font-semibold tracking-wider">Behavior</span>
+                            </div>
+                            <h3 class="heading-font text-3xl mt-2 leading-none">Behavior Translator</h3>
+                            <p class="mt-6 text-[#0a2540]/70">Real-time AI insights into 142 different behaviors. Barks, tail wags, ear positions and more.</p>
+                            <div class="mt-8 text-[#ffb800] text-sm font-medium flex items-center gap-x-2">
+                                Learn more 
+                                <span class="text-base">→</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Card 2 -->
+                    <a href="services.html" class="card-hover bg-[#fdfbf7] border border-[#0a2540]/5 rounded-3xl overflow-hidden cursor-pointer block">
+                        <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=600" alt="Cat wellness" 
+                             class="w-full h-56 object-cover">
+                        <div class="p-7">
+                            <div class="flex items-center gap-x-2 text-[#0f766e]">
+                                <span class="text-xl">❤️</span>
+                                <span class="uppercase text-xs font-semibold tracking-wider">Health</span>
+                            </div>
+                            <h3 class="heading-font text-3xl mt-2 leading-none">Health &amp; Wellness Tracker</h3>
+                            <p class="mt-6 text-[#0a2540]/70">Daily logs, symptom checker, early warning system powered by AI and licensed vets.</p>
+                            <div class="mt-8 text-[#ffb800] text-sm font-medium flex items-center gap-x-2">
+                                Learn more 
+                                <span class="text-base">→</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Card 3 -->
+                    <a href="services.html" class="card-hover bg-[#fdfbf7] border border-[#0a2540]/5 rounded-3xl overflow-hidden cursor-pointer block">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600" alt="Dog training" 
+                             class="w-full h-56 object-cover">
+                        <div class="p-7">
+                            <div class="flex items-center gap-x-2 text-[#0f766e]">
+                                <span class="text-xl">🏋️</span>
+                                <span class="uppercase text-xs font-semibold tracking-wider">Training</span>
+                            </div>
+                            <h3 class="heading-font text-3xl mt-2 leading-none">Personalized Training</h3>
+                            <p class="mt-6 text-[#0a2540]/70">Custom daily training plans based on your pet’s breed, age, energy level and goals.</p>
+                            <div class="mt-8 text-[#ffb800] text-sm font-medium flex items-center gap-x-2">
+                                Learn more 
+                                <span class="text-base">→</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Card 4 -->
+                    <a href="services.html" class="card-hover bg-[#fdfbf7] border border-[#0a2540]/5 rounded-3xl overflow-hidden cursor-pointer block">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600" alt="Vet chat" 
+                             class="w-full h-56 object-cover">
+                        <div class="p-7">
+                            <div class="flex items-center gap-x-2 text-[#0f766e]">
+                                <span class="text-xl">💬</span>
+                                <span class="uppercase text-xs font-semibold tracking-wider">Vet Chat</span>
+                            </div>
+                            <h3 class="heading-font text-3xl mt-2 leading-none">24/7 Vet Chat</h3>
+                            <p class="mt-6 text-[#0a2540]/70">Instant access to US-licensed veterinarians. No appointment needed. Always there when you need them.</p>
+                            <div class="mt-8 text-[#ffb800] text-sm font-medium flex items-center gap-x-2">
+                                Learn more 
+                                <span class="text-base">→</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW THE AI WORKS SPLIT -->
+        <section class="py-24 bg-[#fdfbf7]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                    <!-- PHONE MOCKUP -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="phone-mock w-[260px] bg-white relative">
+                            <!-- phone top bar -->
+                            <div class="h-7 bg-[#0a2540] flex items-center justify-center">
+                                <div class="w-24 h-3 bg-[#fdfbf7] rounded-3xl"></div>
+                            </div>
+                            
+                            <div id="phone-content" class="relative h-[480px] overflow-hidden">
+                                <!-- Rotating images -->
+                                <img id="phone-img-1" src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600" 
+                                     class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700">
+                                <img id="phone-img-2" src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=600" 
+                                     class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700">
+                                <img id="phone-img-3" src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600" 
+                                     class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700">
+                                
+                                <!-- Overlay analysis bubble -->
+                                <div id="analysis-bubble" 
+                                     class="absolute bottom-12 left-6 bg-white rounded-3xl shadow-2xl p-4 max-w-[160px] text-xs hidden">
+                                    <div class="flex items-center gap-x-2">
+                                        <div class="text-[#ffb800]">AI</div>
+                                        <div class="flex-1 h-px bg-[#0a2540]/10"></div>
+                                    </div>
+                                    <div class="mt-3 text-[#0a2540]">Your dog is feeling <span class="font-semibold text-[#0f766e]">anxious</span> about the thunderstorm.</div>
+                                    <div class="text-[10px] text-[#0a2540]/40 mt-4">87% confidence • 12 seconds ago</div>
+                                </div>
+                            </div>
+                            
+                            <!-- phone bottom bar -->
+                            <div class="absolute bottom-4 left-0 right-0 flex justify-center">
+                                <div class="bg-[#0a2540]/90 text-[#ffb800] text-[10px] font-medium px-5 py-1 rounded-3xl">SCAN COMPLETE</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- STEPS -->
+                    <div class="lg:col-span-7">
+                        <div class="max-w-md">
+                            <span class="px-4 py-2 bg-[#ffb800]/10 text-[#ffb800] text-xs rounded-3xl">HOW PETPAL AI WORKS</span>
+                            
+                            <div class="mt-8 space-y-16">
+                                <div class="flex gap-6 fade-in-section">
+                                    <div class="w-8 h-8 bg-[#0a2540] text-white rounded-2xl flex items-center justify-center font-semibold flex-shrink-0">1</div>
+                                    <div>
+                                        <div class="font-semibold text-xl">Record a 30-second clip</div>
+                                        <div class="text-[#0a2540]/70 mt-3">Point your phone at your pet. Our AI listens and watches for subtle cues you might miss.</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-6 fade-in-section">
+                                    <div class="w-8 h-8 bg-[#0a2540] text-white rounded-2xl flex items-center justify-center font-semibold flex-shrink-0">2</div>
+                                    <div>
+                                        <div class="font-semibold text-xl">AI analyzes 142 micro-behaviors</div>
+                                        <div class="text-[#0a2540]/70 mt-3">Our model trained on millions of videos detects ear twitches, tail angles, vocal tones and more.</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-6 fade-in-section">
+                                    <div class="w-8 h-8 bg-[#0a2540] text-white rounded-2xl flex items-center justify-center font-semibold flex-shrink-0">3</div>
+                                    <div>
+                                        <div class="font-semibold text-xl">Get plain-English insights</div>
+                                        <div class="text-[#0a2540]/70 mt-3">Receive actionable advice, training steps, nutrition suggestions, and when to see a vet.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-16 text-xs flex items-center gap-x-3 text-[#0a2540]/60">
+                                <div class="flex-1 h-px bg-[#0a2540]/10"></div>
+                                <a href="how-it-works.html" class="hover:text-[#ffb800] flex items-center gap-x-2">
+                                    87% accuracy on 14 common behaviors 
+                                    <span class="text-base text-[#ffb800]">→</span>
+                                </a>
+                                <div class="flex-1 h-px bg-[#0a2540]/10"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <section class="py-16 bg-[#0a2540] text-white">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-y-12">
+                <div class="text-center">
+                    <div class="text-5xl font-semibold text-[#ffb800]">1.2M</div>
+                    <div class="text-sm tracking-widest mt-2 text-white/60">PETS REGISTERED</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-semibold text-[#ffb800]">4.9</div>
+                    <div class="text-sm tracking-widest mt-2 text-white/60">AVERAGE RATING</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-semibold text-[#ffb800]">24/7</div>
+                    <div class="text-sm tracking-widest mt-2 text-white/60">VET CHAT</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-semibold text-[#ffb800]">100%</div>
+                    <div class="text-sm tracking-widest mt-2 text-white/60">MONEY BACK</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section class="py-24 bg-[#fdfbf7]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-baseline mb-12">
+                    <div>
+                        <span class="text-[#0f766e] text-sm font-medium">DON'T TAKE OUR WORD FOR IT</span>
+                        <h2 class="heading-font text-5xl">Real pets. Real stories.</h2>
+                    </div>
+                    <a href="services.html" class="hidden sm:flex items-center gap-x-2 text-sm font-medium">
+                        SEE ALL STORIES 
+                        <span class="text-xl">↗</span>
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card bg-white p-8 rounded-3xl">
+                        <div class="flex items-center gap-x-4">
+                            <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=120" alt="Biscuit" 
+                                 class="w-10 h-10 object-cover rounded-2xl">
+                            <div>
+                                <div class="font-medium">Sarah &amp; Biscuit</div>
+                                <div class="text-xs text-[#0a2540]/40">Golden Retriever • Brooklyn, NY</div>
+                            </div>
+                        </div>
+                        <p class="mt-8 italic text-[#0a2540]/80">"PetPal caught that Biscuit was in pain from an infected tooth before I noticed anything. The vet chat saved us a $600 emergency visit."</p>
+                        <div class="flex gap-x-1 mt-12 text-[#ffb800]">
+                            ★★★★☆
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card bg-white p-8 rounded-3xl">
+                        <div class="flex items-center gap-x-4">
+                            <img src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=120" alt="Luna" 
+                                 class="w-10 h-10 object-cover rounded-2xl">
+                            <div>
+                                <div class="font-medium">Mike &amp; Luna</div>
+                                <div class="text-xs text-[#0a2540]/40">French Bulldog • San Francisco</div>
+                            </div>
+                        </div>
+                        <p class="mt-8 italic text-[#0a2540]/80">"The training plans are incredible. Luna went from destroying every pillow in the house to being calm within 3 weeks."</p>
+                        <div class="flex gap-x-1 mt-12 text-[#ffb800]">
+                            ★★★★★
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card bg-white p-8 rounded-3xl">
+                        <div class="flex items-center gap-x-4">
+                            <img src="https://images.unsplash.com/photo-1514888286974-6c03e93f4c7c?w=120" alt="Milo" 
+                                 class="w-10 h-10 object-cover rounded-2xl">
+                            <div>
+                                <div class="font-medium">Priya &amp; Milo</div>
+                                <div class="text-xs text-[#0a2540]/40">Ragdoll Cat • Austin, TX</div>
+                            </div>
+                        </div>
+                        <p class="mt-8 italic text-[#0a2540]/80">"I love the daily health summaries. The AI actually knows when Milo is hiding his pain. The 24/7 chat is a lifesaver."</p>
+                        <div class="flex gap-x-1 mt-12 text-[#ffb800]">
+                            ★★★★★
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING TEASER -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="inline-flex px-6 py-2 text-xs font-medium bg-[#ff6b6b]/10 text-[#ff6b6b] rounded-3xl">PRICING</span>
+                    <h2 class="heading-font text-5xl mt-3">Simple plans for every pet parent</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- Free -->
+                    <div class="border border-[#0a2540]/10 rounded-3xl p-8">
+                        <div class="text-sm font-medium">STARTER</div>
+                        <div class="mt-4 flex items-baseline">
+                            <span class="text-6xl font-semibold">$0</span>
+                            <span class="ml-3 text-[#0a2540]/40">forever</span>
+                        </div>
+                        <ul class="mt-8 space-y-4 text-sm">
+                            <li class="flex items-center gap-x-2">✓ Basic behavior insights</li>
+                            <li class="flex items-center gap-x-2">✓ 1 pet profile</li>
+                            <li class="flex items-center gap-x-2 text-[#0a2540]/40">✕ No vet chat</li>
+                        </ul>
+                        <a href="pricing.html" class="mt-12 block w-full py-5 border border-[#0a2540] text-sm font-semibold rounded-3xl text-center">Get started free</a>
+                    </div>
+                    
+                    <!-- PRO - FEATURED -->
+                    <div class="relative border-2 border-[#ffb800] rounded-3xl p-8 shadow-2xl scale-105 z-10">
+                        <div class="absolute -top-3 right-8 bg-[#ff6b6b] text-white text-xs font-medium px-6 py-1 rounded-3xl">MOST POPULAR</div>
+                        <div class="text-sm font-medium text-[#ffb800]">PRO</div>
+                        <div class="mt-4 flex items-baseline">
+                            <span class="text-6xl font-semibold">$19</span>
+                            <span class="ml-3 text-[#0a2540]/40">/ month</span>
+                        </div>
+                        <ul class="mt-8 space-y-4 text-sm">
+                            <li class="flex items-center gap-x-2">✓ Unlimited behavior analysis</li>
+                            <li class="flex items-center gap-x-2">✓ 24/7 vet chat (10/mo)</li>
+                            <li class="flex items-center gap-x-2">✓ Personalized training &amp; nutrition</li>
+                            <li class="flex items-center gap-x-2">✓ Up to 3 pets</li>
+                        </ul>
+                        <a href="pricing.html" class="mt-12 block w-full py-5 bg-[#ffb800] text-[#0a2540] font-semibold rounded-3xl pill-button text-center">Start 14-day free trial</a>
+                    </div>
+                    
+                    <!-- FAMILY -->
+                    <div class="border border-[#0a2540]/10 rounded-3xl p-8">
+                        <div class="text-sm font-medium">FAMILY</div>
+                        <div class="mt-4 flex items-baseline">
+                            <span class="text-6xl font-semibold">$39</span>
+                            <span class="ml-3 text-[#0a2540]/40">/ month</span>
+                        </div>
+                        <ul class="mt-8 space-y-4 text-sm">
+                            <li class="flex items-center gap-x-2">✓ Everything in Pro</li>
+                            <li class="flex items-center gap-x-2">✓ Unlimited vet chats</li>
+                            <li class="flex items-center gap-x-2">✓ Unlimited pets &amp; household sharing</li>
+                            <li class="flex items-center gap-x-2">✓ Priority support</li>
+                        </ul>
+                        <a href="pricing.html" class="mt-12 block w-full py-5 border border-[#0a2540] text-sm font-semibold rounded-3xl text-center">Choose Family plan</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CTA -->
+        <div class="bg-gradient-to-r from-[#fdfbf7] via-[#fffbeb] to-[#ffb800] py-20">
+            <div class="max-w-4xl mx-auto text-center px-5">
+                <h2 class="heading-font text-6xl leading-none text-[#0a2540]">Your pet has a lot to say.<br>Let's listen together.</h2>
+                <div class="flex flex-col sm:flex-row gap-x-4 gap-y-4 justify-center mt-12">
+                    <a href="pricing.html" 
+                       class="pill-button px-14 py-7 bg-[#0a2540] text-white rounded-3xl font-semibold text-xl inline-flex items-center justify-center">Get the app free for 14 days</a>
+                    <a href="how-it-works.html" 
+                       class="pill-button px-14 py-7 border-2 border-[#0a2540] text-[#0a2540] rounded-3xl font-medium inline-flex items-center justify-center">See how it works</a>
+                </div>
+                
+                <div class="flex justify-center gap-x-6 mt-16">
+                    <div onclick="window.open('https://apps.apple.com','_blank')" class="bg-black text-white text-[10px] flex items-center px-4 rounded-2xl cursor-pointer">
+                        <span class="text-4xl mr-2"></span>
+                        <div>
+                            <div class="text-[9px]">Download on the</div>
+                            <div class="font-semibold -mt-0.5">App Store</div>
+                        </div>
+                    </div>
+                    <div onclick="window.open('https://play.google.com','_blank')" class="bg-black text-white text-[10px] flex items-center px-4 rounded-2xl cursor-pointer">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/512px-Google_Play_Store_badge_EN.svg.png" alt="Play" class="h-6">
+                    </div>
+                </div>
+                
+                <div class="text-xs text-[#0a2540]/40 mt-8">Backed by Sequoia, a16z &amp; Brian Chesky • Payments secured by Stripe</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0a2540] text-white">
+        <div class="max-w-7xl mx-auto px-6 pt-20">
+            <!-- NEWSLETTER -->
+            <div class="bg-[#fdfbf7] text-[#0a2540] rounded-3xl p-8 md:p-12 grid md:grid-cols-12 items-center gap-8">
+                <div class="md:col-span-7">
+                    <div class="uppercase text-xs tracking-[1px]">Weekly tips for happier pets</div>
+                    <div class="heading-font text-4xl mt-2">Stay in the know</div>
+                </div>
+                <div class="md:col-span-5">
+                    <div class="flex">
+                        <input id="email-input" type="email" placeholder="your@email.com" 
+                               class="flex-1 bg-white border-0 focus:ring-0 rounded-l-3xl px-7 text-sm h-14 outline-none">
+                        <button onclick="subscribe()" 
+                                class="bg-[#ffb800] text-[#0a2540] font-semibold px-10 rounded-r-3xl">Join</button>
+                    </div>
+                    <div class="text-xs text-[#0a2540]/40 mt-4">Zero spam. Unsubscribe anytime.</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-y-12 pt-16">
+                <!-- Product -->
+                <div>
+                    <div class="uppercase text-xs text-white/40 mb-6">Product</div>
+                    <div class="space-y-4 text-sm">
+                        <a href="how-it-works.html" class="block hover:text-[#ffb800]">How it Works</a>
+                        <a href="services.html" class="block hover:text-[#ffb800]">Services</a>
+                        <a href="pricing.html" class="block hover:text-[#ffb800]">Pricing</a>
+                    </div>
+                </div>
+                
+                <!-- Company -->
+                <div>
+                    <div class="uppercase text-xs text-white/40 mb-6">Company</div>
+                    <div class="space-y-4 text-sm">
+                        <a href="#" onclick="event.preventDefault();alert('Our story would be here')" class="block hover:text-[#ffb800]">Our Story</a>
+                        <a href="#" onclick="event.preventDefault();alert('Careers page would be here')" class="block hover:text-[#ffb800]">Careers</a>
+                        <a href="#" class="block hover:text-[#ffb800]">Blog</a>
+                    </div>
+                </div>
+                
+                <!-- Resources -->
+                <div>
+                    <div class="uppercase text-xs text-white/40 mb-6">Resources</div>
+                    <div class="space-y-4 text-sm">
+                        <a href="how-it-works.html" class="block hover:text-[#ffb800]">Research</a>
+                        <a href="#" class="block hover:text-[#ffb800]">Community</a>
+                        <a href="#" class="block hover:text-[#ffb800]">Pet Parent Stories</a>
+                    </div>
+                </div>
+                
+                <!-- Legal -->
+                <div>
+                    <div class="uppercase text-xs text-white/40 mb-6">Legal</div>
+                    <div class="space-y-4 text-sm">
+                        <a href="#" class="block hover:text-[#ffb800]">Privacy</a>
+                        <a href="#" class="block hover:text-[#ffb800]">Terms</a>
+                        <a href="#" class="block hover:text-[#ffb800]">Trust &amp; Safety</a>
+                    </div>
+                </div>
+                
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex gap-x-6 text-2xl">
+                        <a href="#" class="hover:text-[#ffb800]">𝕏</a>
+                        <a href="#" class="hover:text-[#ffb800]">📸</a>
+                        <a href="#" class="hover:text-[#ffb800]">♬</a>
+                        <a href="#" class="hover:text-[#ffb800]">📺</a>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <div class="flex items-center gap-x-2 text-xs mb-4">
+                            <div onclick="window.open('https://apps.apple.com','_blank')" class="bg-white/10 text-white px-3 py-2 rounded-3xl cursor-pointer">App Store</div>
+                            <div onclick="window.open('https://play.google.com','_blank')" class="bg-white/10 text-white px-3 py-2 rounded-3xl cursor-pointer">Play</div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-xs text-white/30">
+                        © 2024 PetPal AI, Inc.<br>
+                        Austin, Texas
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-white/30 text-xs py-8 border-t border-white/10 mt-20">
+                Made with 🐾 in Austin, Texas. Backed by Sequoia, a16z, and Brian Chesky. Payments secured by <span class="text-[#ffb800]">Stripe</span>.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function initializeTailwind() {
+            tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {
+                        colors: {
+                            navy: '#0a2540',
+                            cream: '#fdfbf7',
+                            accent: '#ffb800',
+                            coral: '#ff6b6b',
+                            forest: '#0f766e'
+                        }
+                    }
+                }
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            menu.classList.toggle('hidden')
+            
+            const btn = document.getElementById('mobile-menu-button')
+            if (!menu.classList.contains('hidden')) {
+                btn.innerHTML = '✕'
+            } else {
+                btn.innerHTML = '☰'
+            }
+        }
+        
+        let phoneIndex = 1
+        function rotatePhoneImages() {
+            const img1 = document.getElementById('phone-img-1')
+            const img2 = document.getElementById('phone-img-2')
+            const img3 = document.getElementById('phone-img-3')
+            const bubble = document.getElementById('analysis-bubble')
+            
+            phoneIndex = (phoneIndex % 3) + 1
+            
+            if (phoneIndex === 1) {
+                img1.style.opacity = 1
+                img2.style.opacity = 0
+                img3.style.opacity = 0
+                bubble.classList.add('hidden')
+            } else if (phoneIndex === 2) {
+                img1.style.opacity = 0
+                img2.style.opacity = 1
+                img3.style.opacity = 0
+                bubble.classList.remove('hidden')
+            } else {
+                img1.style.opacity = 0
+                img2.style.opacity = 0
+                img3.style.opacity = 1
+                bubble.classList.add('hidden')
+            }
+        }
+        
+        function watchDemo() {
+            const modal = document.createElement('div')
+            modal.style.cssText = 'position:fixed;inset:0;background:rgba(10,37,64,0.8);display:flex;align-items:center;justify-content:center;z-index:9999'
+            modal.innerHTML = `
+                <div onclick="event.stopImmediatePropagation()" 
+                     class="bg-white max-w-lg w-full mx-4 rounded-3xl overflow-hidden">
+                    <div class="aspect-video bg-[#0a2540] flex items-center justify-center text-white">
+                        <div class="text-center">
+                            <div class="mx-auto w-16 h-16 bg-[#ffb800] rounded-2xl flex items-center justify-center text-4xl mb-6">▶</div>
+                            <div class="text-xl">PetPal AI Demo (1:42)</div>
+                            <div class="text-xs text-white/40 mt-1">Behavior analysis in action</div>
+                        </div>
+                    </div>
+                    <div class="p-6 flex justify-end">
+                        <button onclick="this.closest('.bg-white').parentElement.remove()" 
+                                class="px-8 py-3.5 text-sm font-medium">Close</button>
+                    </div>
+                </div>
+            `
+            modal.onclick = () => modal.remove()
+            document.body.appendChild(modal)
+        }
+        
+        function subscribe() {
+            const input = document.getElementById('email-input')
+            if (input.value.trim() !== '') {
+                const origText = input.value
+                input.value = 'Thank you! 🐶'
+                setTimeout(() => {
+                    input.value = ''
+                }, 2200)
+            }
+        }
+        
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible')
+                    }
+                })
+            }, {
+                threshold: 0.15
+            })
+            
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section)
+            })
+            
+            const testimonialCards = document.querySelectorAll('.testimonial-card')
+            testimonialCards.forEach((card, index) => {
+                card.style.transitionDelay = (100 * index) + 'ms'
+                observer.observe(card)
+            })
+        }
+        
+        function handleEscape(e) {
+            if (e.key === "Escape") {
+                const mobileMenu = document.getElementById('mobile-menu')
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMobileMenu()
+                }
+            }
+        }
+        
+        window.onload = function() {
+            initializeTailwind()
+            initScrollAnimations()
+            
+            setInterval(() => {
+                rotatePhoneImages()
+            }, 2600)
+            
+            setTimeout(() => {
+                rotatePhoneImages()
+            }, 1800)
+            
+            document.addEventListener('keydown', handleEscape)
+            
+            console.log('%cPetPal AI marketing site ready 🐾 • Stripe checkout ready on /pricing', 'font-family:monospace;color:#ffb800;font-size:10px')
+        }
+    </script>
+</body>
+</html>
