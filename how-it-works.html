@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>How PetPal AI Works — Science-Backed Pet Understanding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <meta property="og:title" content="How PetPal AI Works">
+    <meta property="og:description" content="From a 30-second video to personalized insights in seconds.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1604542031658-5799b2c2f5c4?w=1200">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'DM Serif Display', serif;
+        }
+        
+        .step-image {
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .step-image:hover {
+            transform: scale(1.04);
+        }
+        
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 900ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .research-card {
+            transition: all 0.3s ease;
+        }
+        
+        .research-card:hover {
+            transform: translateY(-10px);
+        }
+    </style>
+</head>
+<body class="tail-container bg-[#fdfbf7] text-[#0a2540]">
+    <!-- NAVBAR -->
+    <nav class="bg-[#fdfbf7] border-b border-[#0a2540]/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#ffb800] text-[#0a2540] flex items-center justify-center rounded-2xl text-3xl logo-paw">🐾</div>
+                    <div>
+                        <span class="heading-font text-3xl tracking-tighter font-medium">PetPal</span>
+                    </div>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="how-it-works.html" class="nav-link text-[#ffb800] font-semibold">How it Works</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-4">
+                    <a href="pricing.html" 
+                       class="pill-button px-6 py-3.5 bg-[#ffb800] hover:bg-[#ff9f00] text-[#0a2540] font-semibold text-sm rounded-3xl flex items-center gap-x-2 shadow-inner">
+                        Get the app
+                    </a>
+                </div>
+                
+                <button id="mobile-menu-button"
+                        class="md:hidden w-11 h-11 flex items-center justify-center text-3xl"
+                        onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden fixed inset-0 bg-[#0a2540] z-[999] flex flex-col">
+            <div class="px-6 pt-8 pb-6 flex justify-between items-center border-b border-white/10">
+                <a href="index.html" class="flex items-center gap-x-3 text-white">
+                    <div class="w-9 h-9 bg-[#ffb800] text-[#0a2540] flex items-center justify-center rounded-2xl text-3xl">🐾</div>
+                    <span class="heading-font text-3xl tracking-tighter font-medium">PetPal</span>
+                </a>
+                <button onclick="toggleMobileMenu()" class="text-4xl text-white">✕</button>
+            </div>
+            
+            <div class="flex-1 px-6 py-10 flex flex-col gap-y-8 text-2xl font-medium text-white">
+                <a href="index.html" onclick="toggleMobileMenu()" class="nav-link">Home</a>
+                <a href="how-it-works.html" onclick="toggleMobileMenu()" class="nav-link text-[#ffb800]">How it Works</a>
+                <a href="services.html" onclick="toggleMobileMenu()" class="nav-link">Services</a>
+                <a href="pricing.html" onclick="toggleMobileMenu()" class="nav-link">Pricing</a>
+            </div>
+            
+            <div class="p-6 border-t border-white/10">
+                <a href="pricing.html" onclick="toggleMobileMenu()" 
+                   class="block w-full py-6 bg-[#ffb800] text-[#0a2540] rounded-3xl text-xl font-semibold text-center">Get the app — 14 days free</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO -->
+        <div class="bg-[#0a2540] text-white py-20 md:py-28">
+            <div class="max-w-5xl mx-auto px-6 text-center">
+                <div class="inline px-5 py-2 text-xs bg-white/10 rounded-3xl mb-6">THE SCIENCE OF UNDERSTANDING</div>
+                <h1 class="heading-font italic text-6xl md:text-7xl max-w-2xl mx-auto leading-none">The science of understanding your pet.</h1>
+                <p class="max-w-md mx-auto mt-8 text-white/70">Our AI was trained on over 4 million hours of pet footage and peer-reviewed veterinary studies from Stanford, Cornell, and UC Davis.</p>
+                
+                <div onclick="playExplainerVideo()" 
+                     class="mt-16 mx-auto max-w-2xl bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer relative group">
+                    <img src="https://images.unsplash.com/photo-1604542031658-5799b2c2f5c4?w=1400" 
+                         class="w-full h-auto opacity-75 group-active:scale-95 transition-transform" alt="AI explainer">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center text-[#0a2540] shadow-2xl text-5xl">▶</div>
+                    </div>
+                    <div class="absolute bottom-8 left-8 bg-black/70 text-white text-xs px-4 py-2 rounded-3xl flex items-center gap-x-2">
+                        <div class="w-2 h-2 bg-red-500 animate-pulse rounded-full"></div>
+                        1:08 • How PetPal AI works
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEPS -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="space-y-24">
+                <div class="grid md:grid-cols-12 gap-12 items-center fade-in-section">
+                    <div class="md:col-span-7">
+                        <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=1200" 
+                             class="step-image w-full rounded-3xl shadow-2xl" alt="Record video of labrador">
+                    </div>
+                    <div class="md:col-span-5">
+                        <div class="text-[#ffb800] text-sm font-medium mb-2">STEP 01 — RECORD</div>
+                        <h3 class="heading-font text-5xl leading-none">Record a 30-second video of your pet in their natural environment.</h3>
+                        <div class="mt-8 text-lg text-[#0a2540]/70">No special lighting or equipment needed. Our AI works with any phone camera.</div>
+                        <div class="h-px bg-[#0a2540]/10 my-10"></div>
+                        <div class="flex items-center text-xs gap-x-8">
+                            <div>✓ Works for dogs &amp; cats</div>
+                            <div>✓ Any breed, any age</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-12 gap-12 items-center fade-in-section">
+                    <div class="md:col-span-5 md:order-2">
+                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=1200" 
+                             class="step-image w-full rounded-3xl shadow-2xl" alt="AI detecting micro behaviors">
+                    </div>
+                    <div class="md:col-span-7 md:order-1">
+                        <div class="text-[#ffb800] text-sm font-medium mb-2">STEP 02 — ANALYZE</div>
+                        <h3 class="heading-font text-5xl leading-none">Our model detects 142 different micro-behaviors in real time.</h3>
+                        <div class="mt-8 text-lg text-[#0a2540]/70">From whisker twitches to subtle changes in breathing patterns, nothing escapes our AI.</div>
+                        
+                        <div class="mt-12 bg-white border border-[#0a2540]/5 rounded-3xl p-6 inline-flex items-center gap-x-6">
+                            <div class="text-center">
+                                <div class="text-4xl font-semibold text-[#0f766e]">142</div>
+                                <div class="text-xs text-[#0a2540]/50">SIGNALS</div>
+                            </div>
+                            <div class="h-10 border-l"></div>
+                            <div class="max-w-[210px] text-xs">Tail angle, ear rotation, pupil dilation, vocal harmonics, posture, gait...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-12 gap-12 items-center fade-in-section">
+                    <div class="md:col-span-7">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e93f4c7c?w=1200" 
+                             class="step-image w-full rounded-3xl shadow-2xl" alt="Cat receiving insights">
+                    </div>
+                    <div class="md:col-span-5">
+                        <div class="text-[#ffb800] text-sm font-medium mb-2">STEP 03 — UNDERSTAND</div>
+                        <h3 class="heading-font text-5xl leading-none">Receive plain-English insights and a personalized plan instantly.</h3>
+                        <div class="mt-8 text-lg text-[#0a2540]/70">“Milo is showing signs of separation anxiety. Try these 3 calming exercises today.”</div>
+                        <a href="services.html" 
+                           class="mt-10 inline-flex items-center gap-x-4 border border-[#ffb800] text-[#ffb800] px-7 h-12 rounded-3xl text-sm">
+                            SEE SAMPLE REPORT
+                            <span class="text-xl leading-none">↓</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-12 gap-12 items-center fade-in-section">
+                    <div class="md:col-span-5 md:order-2">
+                        <img src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=1200" 
+                             class="step-image w-full rounded-3xl shadow-2xl" alt="Frenchie dashboard">
+                    </div>
+                    <div class="md:col-span-7 md:order-1">
+                        <div class="text-[#ffb800] text-sm font-medium mb-2">STEP 04 — TRACK</div>
+                        <h3 class="heading-font text-5xl leading-none">Watch trends over time and celebrate progress with your pet.</h3>
+                        <div class="mt-8 text-lg text-[#0a2540]/70">Weekly reports, progress graphs, and streak counters keep you motivated.</div>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-12 gap-12 items-center fade-in-section">
+                    <div class="md:col-span-7">
+                        <img src="https://picsum.photos/id/1015/1200/800" 
+                             class="step-image w-full rounded-3xl shadow-2xl" alt="Sharing report with vet">
+                    </div>
+                    <div class="md:col-span-5">
+                        <div class="text-[#ffb800] text-sm font-medium mb-2">STEP 05 — SHARE</div>
+                        <h3 class="heading-font text-5xl leading-none">Export reports and chat transcripts directly to your veterinarian.</h3>
+                        <div class="mt-8 text-lg text-[#0a2540]/70">Seamless integration with over 4,200 veterinary clinics across the US.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RESEARCH -->
+        <div class="bg-white py-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <span class="text-[#0f766e]">BUILT ON PEER-REVIEWED RESEARCH</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div onclick="window.open('https://arxiv.org/pdf/2310.12345','_blank')" 
+                         class="research-card border border-transparent hover:border-[#0a2540]/20 bg-[#fdfbf7] p-6 rounded-3xl cursor-pointer">
+                        <div class="h-2 w-12 bg-[#ffb800] rounded mb-8"></div>
+                        <div class="font-medium">Stanford University • 2023</div>
+                        <div class="text-xl heading-font mt-2">Multimodal behavior recognition in companion animals</div>
+                        <div class="text-xs text-[#0a2540]/60 mt-8">98% accuracy on tail wags. Published in Nature Machine Intelligence.</div>
+                    </div>
+                    
+                    <div onclick="window.open('https://www.vet.cornell.edu/research','_blank')" 
+                         class="research-card border border-transparent hover:border-[#0a2540]/20 bg-[#fdfbf7] p-6 rounded-3xl cursor-pointer">
+                        <div class="h-2 w-12 bg-[#ff6b6b] rounded mb-8"></div>
+                        <div class="font-medium">Cornell University College of Veterinary Medicine • 2024</div>
+                        <div class="text-xl heading-font mt-2">Early detection of feline chronic kidney disease using vocal analysis</div>
+                        <div class="text-xs text-[#0a2540]/60 mt-8">Used in our Health module.</div>
+                    </div>
+                    
+                    <div onclick="window.open('https://www.ucdavis.edu','_blank')" 
+                         class="research-card border border-transparent hover:border-[#0a2540]/20 bg-[#fdfbf7] p-6 rounded-3xl cursor-pointer">
+                        <div class="h-2 w-12 bg-[#0f766e] rounded mb-8"></div>
+                        <div class="font-medium">UC Davis • 2022</div>
+                        <div class="text-xl heading-font mt-2">Nutritional needs by breed and age using computer vision</div>
+                        <div class="text-xs text-[#0a2540]/60 mt-8">Powers our nutrition plans.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FINAL CTA -->
+        <div class="py-20 bg-gradient-to-br from-[#0f766e] to-[#0a2540] text-white">
+            <div class="max-w-2xl mx-auto text-center px-5">
+                <h2 class="text-5xl heading-font">Ready to finally understand your best friend?</h2>
+                <div class="mt-6 text-white/70">Join 1.2 million pet parents already using PetPal AI.</div>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
+                    <a href="pricing.html" 
+                       class="pill-button w-full sm:w-auto px-16 py-7 bg-[#ffb800] text-[#0a2540] font-semibold rounded-3xl inline-flex items-center justify-center">Start 14-day free trial</a>
+                    <a href="pricing.html" 
+                       class="pill-button w-full sm:w-auto px-8 py-7 border border-white/60 hover:border-white text-white rounded-3xl inline-flex items-center justify-center">Compare plans</a>
+                </div>
+                
+                <div class="flex justify-center items-center gap-x-8 mt-16 opacity-75">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/App_Store_%28iOS%29.svg/256px-App_Store_%28iOS%29.svg.png" class="h-6" alt="App Store">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/512px-Google_Play_Store_badge_EN.svg.png" class="h-8" alt="Play Store">
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer class="bg-[#0a2540] text-white">
+        <div class="max-w-7xl mx-auto px-6 pt-20">
+            <div class="bg-[#fdfbf7] text-[#0a2540] rounded-3xl p-8 md:p-12 grid md:grid-cols-12 items-center gap-8">
+                <div class="md:col-span-7">
+                    <div class="uppercase text-xs tracking-[1px]">Weekly tips for happier pets</div>
+                    <div class="heading-font text-4xl mt-2">Stay in the know</div>
+                </div>
+                <div class="md:col-span-5">
+                    <div class="flex">
+                        <input id="email-input" type="email" placeholder="your@email.com" 
+                               class="flex-1 bg-white border-0 focus:ring-0 rounded-l-3xl px-7 text-sm h-14 outline-none">
+                        <button onclick="subscribe()" 
+                                class="bg-[#ffb800] text-[#0a2540] font-semibold px-10 rounded-r-3xl">Join</button>
+                    </div>
+                    <div class="text-xs text-[#0a2540]/40 mt-4">Zero spam. Unsubscribe anytime.</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-y-12 pt-16">
+                <div>
+                    <div class="uppercase text-xs text-white/40 mb-6">Product</div>
+                    <div class="space-y-4 text-sm">
+                        <a href="how-it-works.html" class="block hover:text-[#ffb800]">How it Works</a>
+                        <a href="services.html" class="block hover:text-[#ffb800]">Services</a>
+                        <a href="pricing.html" class="block hover:text-[#ffb800]">Pricing</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="uppercase text-xs text-white/40 mb-6">Company</div>
+                    <div class="space-y-4 text-sm">
+                        <a href="#" onclick="event.preventDefault();alert('Our story would be here')" class="block hover:text-[#ffb800]">Our Story</a>
+                        <a href="#" onclick="event.preventDefault();alert('Careers page would be here')" class="block hover:text-[#ffb800]">Careers</a>
+                        <a href="#" class="block hover:text-[#ffb800]">Blog</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="uppercase text-xs text-white/40 mb-6">Resources</div>
+                    <div class="space-y-4 text-sm">
+                        <a href="/help" onclick="event.preventDefault();alert('Help center coming soon')" class="block hover:text-[#ffb800]">Help Center</a>
+                        <a href="how-it-works.html" class="block hover:text-[#ffb800]">Research</a>
+                        <a href="#" class="block hover:text-[#ffb800]">Community</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="uppercase text-xs text-white/40 mb-6">Legal</div>
+                    <div class="space-y-4 text-sm">
+                        <a href="#" class="block hover:text-[#ffb800]">Privacy</a>
+                        <a href="#" class="block hover:text-[#ffb800]">Terms</a>
+                        <a href="#" class="block hover:text-[#ffb800]">Trust &amp; Safety</a>
+                    </div>
+                </div>
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex gap-x-6 text-2xl">
+                        <a href="#" class="hover:text-[#ffb800]">𝕏</a>
+                        <a href="#" class="hover:text-[#ffb800]">📸</a>
+                        <a href="#" class="hover:text-[#ffb800]">♬</a>
+                        <a href="#" class="hover:text-[#ffb800]">📺</a>
+                    </div>
+                    <div class="mt-12 text-xs text-white/30">
+                        © 2024 PetPal AI, Inc.<br>
+                        Austin, Texas
+                    </div>
+                    <div class="mt-6 text-[10px] text-white/30">Made with 🐾 in Austin, Texas. Secured by Stripe.</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function initializeTailwind() {
+            tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {
+                        colors: {
+                            navy: '#0a2540',
+                            cream: '#fdfbf7',
+                            accent: '#ffb800',
+                            coral: '#ff6b6b',
+                            forest: '#0f766e'
+                        }
+                    }
+                }
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            menu.classList.toggle('hidden')
+        }
+        
+        function playExplainerVideo() {
+            const modal = document.createElement('div')
+            modal.style.cssText = `position:fixed;inset:0;background:rgba(10,37,64,0.9);z-index:99999;display:flex;align-items:center;justify-content:center`
+            modal.innerHTML = `
+            <div onclick="event.stopImmediatePropagation()" class="max-w-xl w-full mx-4 bg-white rounded-3xl overflow-hidden shadow-2xl">
+                <div class="bg-black py-6 text-white text-center text-sm font-medium flex items-center justify-between px-8">
+                    <div>PetPal AI Explainer Video</div>
+                    <button onclick="this.closest('.fixed').remove()" class="text-white/60 hover:text-white">✕</button>
+                </div>
+                <div class="aspect-video bg-zinc-950 flex items-center justify-center relative">
+                    <div onclick="this.parentElement.innerHTML = '&lt;iframe width=&quot;100%&quot; height=&quot;100%&quot; src=&quot;https://www.youtube.com/embed/dQw4w9wgccc&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;'" 
+                         class="cursor-pointer w-20 h-20 bg-white rounded-2xl flex items-center justify-center text-5xl shadow-2xl">▶</div>
+                    <div class="absolute bottom-6 text-xs text-white/60">How the AI translates barks • 1:08</div>
+                </div>
+                <div class="p-6 text-xs text-center text-[#0a2540]/60">Demo video would play here. Powered by real veterinary data.</div>
+            </div>`
+            document.body.appendChild(modal)
+        }
+        
+        function subscribe() {
+            const input = document.getElementById('email-input')
+            if (input && input.value.trim()) {
+                input.value = "✅ You're on the list!"
+                setTimeout(() => input.value = '', 2500)
+            }
+        }
+        
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible')
+                        obs.unobserve(entry.target)
+                    }
+                })
+            }, { threshold: 0.3 })
+            
+            document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el))
+        }
+        
+        window.onload = function() {
+            initializeTailwind()
+            initAnimations()
+            
+            const mobileBtn = document.getElementById('mobile-menu-button')
+            if (mobileBtn) mobileBtn.innerHTML = '☰'
+            
+            console.log('%cHow PetPal AI Works — Stripe-ready checkout on pricing page', 'color:#ffb800;font-size:10px')
+        }
+    </script>
+</body>
+</html>
